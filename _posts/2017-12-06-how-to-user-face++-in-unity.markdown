@@ -203,6 +203,7 @@ int nativeSetFaceppConfig(int handle, int minFaceSize, int rotation,
 }
 {% endhighlight %}
 
+webcamtexture 纹理转为byte[] 数组
 {% highlight c# %}
 [DllImport("MegviiFacepp-jni-0.4.7")]
 		private static extern int nativeSetFaceppConfig (int handle, int minFaceSize, int rotation,
