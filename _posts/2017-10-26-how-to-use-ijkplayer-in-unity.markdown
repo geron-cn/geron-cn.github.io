@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  how to use ijkplayer in unity 
+title:  在unity中使用ijkplayer解析4k/hls/rtsp/rtmp
 date: 2017-10-26 
-categories: unity mediaplayer 4k hls/rtsp/rtmp
+categories: unity mediaplayer 4k hls rtsp rtmp
 ---
 
 **需求**：在unity中解析4K视频/mpeg4/mp4/rtsp/rtmp/hls视频

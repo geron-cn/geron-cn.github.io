@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  how to user face++ in unity 
+title:  在unity中使用face++SDK
 date: 2017-12-06 
 categories: unity face++ 人脸检测 ar
 ---
