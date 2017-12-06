@@ -296,7 +296,7 @@ private float[] nativeDetect(byte[] imagedata, int w, int h, int rotation, FaceI
 {% endhighlight %}
 
 
-以上仅针对有些基础的同学，如果看了这些还是云里雾里的话，直接邮箱留言我发demo吧。
+**补充**：以上仅针对有些基础的同学，如果看了这些还是云里雾里的话，直接邮箱留言我发demo吧。
 
 [1]:https://www.faceplusplus.com.cn/face-landmark-sdk/
 
