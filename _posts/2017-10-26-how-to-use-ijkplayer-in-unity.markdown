@@ -2,7 +2,7 @@
 layout: post
 title:  how to use ijkplayer in unity 
 date: 2017-10-26 
-categories: unity mediaplayer 
+categories: unity mediaplayer 4k hls/rtsp/rtmp
 ---
 
 **需求**：在unity中解析4K视频/mpeg4/mp4/rtsp/rtmp/hls视频
@@ -13,7 +13,7 @@ categories: unity mediaplayer
 
 **参考资料**：[EasyMovieTexture][3] [ijkplayer][1]
 
-**方案**：这个思路中关键点在于把ijkplayer解析出来的纹理传递给unity，所以我们需要一个 TextureId 来传递纹理（这也可以用Texture.LoadRawTextureData(byte[])传递图像数据，但是这样效率太低），仔细阅读EasyMovieTexture.java这部分工作事实上已经做好了，那么最简单粗暴的方法则是直接找到其中的android.media.MediaPlayer 替换为 tv.danmaku.ijk.media.player.IjkMediaPlayer 即可。
+**方案**：这个思路中关键点在于把ijkplayer解析出来的纹理传递给unity，所以我们需要一个 TextureId 来传递纹理（这也可以用 `Texture.LoadRawTextureData(byte[]`传递图像数据），但是这样效率太低），仔细阅读EasyMovieTexture.java这部分工作事实上已经做好了，那么最简单粗暴的方法则是直接找到其中的android.media.MediaPlayer 替换为 tv.danmaku.ijk.media.player.IjkMediaPlayer 即可。
 贴上代码：
 
 {% highlight java %}
