@@ -1,8 +1,13 @@
 ---
-layout: post
-title:  在unity中使用face++SDK
-date: 2017-12-06 
-categories: unity face++ 人脸检测 ar
+layout:  post
+title:   在unity中使用 face++ SDK
+date:    2017-12-06 10:19:56
+author: Gero
+header-img: "img/post-bg-miui6.jpg"
+tags:
+    - faceplusplus
+    - 人脸检测
+    - AR应用
 ---
 
 

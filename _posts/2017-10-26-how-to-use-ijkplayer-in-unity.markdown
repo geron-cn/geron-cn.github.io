@@ -1,8 +1,13 @@
 ---
-layout: post
-title:  在unity中使用ijkplayer解析4k/hls/rtsp/rtmp
-date: 2017-10-26 
-categories: unity mediaplayer 4k hls rtsp rtmp
+layout:     post
+title:      在unity中使用ijkplayer解析4k/hls/rtsp/rtmp
+date:       2017-10-26 12:00:00
+author:     Gero
+header-img: "img/post-bg-miui6.jpg"
+tags:
+    - unity
+    - 播放器
+    - 视频解析
 ---
 
 **需求**：在unity中解析4K视频/mpeg4/mp4/rtsp/rtmp/hls视频
