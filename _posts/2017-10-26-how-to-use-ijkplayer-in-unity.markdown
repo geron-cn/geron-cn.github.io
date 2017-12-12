@@ -10,15 +10,15 @@ tags:
     - 视频解析
 ---
 
-**需求**：在unity中解析4K视频/mpeg4/mp4/rtsp/rtmp/hls视频
+**需求**：在unity中解析4K视频/mpeg4/mp4/rtsp/rtmp/hls视频
 
-**场景**：需要在unity中实现较为复杂的ui和空间交互的同时，解析播放各种复杂的视频流
+**场景**：需要在unity中实现较为复杂的ui和空间交互的同时，解析播放各种复杂的视频流
 
-**问题分析及思路**：unity 的MovieTexture和比较常见的插件支持的视频解析功能太弱，个人觉得比较好用的就是 bilibili的 [ijkplayer][1]，基于[ffmpeg][2]，功能强大性能稳定且开源，是我辈最爱。 如果讲ijkplayer解析出的纹理装载到unity中，即可完美解决问题，解析直播流或是4k视频毫无压力，可以贴到球体/弧面上面轻松实现VR全景播放器等复杂功能和交互。
+**问题分析及思路**：unity 的MovieTexture和比较常见的插件支持的视频解析功能太弱，个人觉得比较好用的就是 bilibili的 [ijkplayer][1]，基于[ffmpeg][2]，功能强大性能稳定且开源，是我辈最爱。 如果讲ijkplayer解析出的纹理装载到unity中，即可完美解决问题，解析直播流或是4k视频毫无压力，可以贴到球体/弧面上面轻松实现VR全景播放器等复杂功能和交互。
 
-**参考资料**：[EasyMovieTexture][3] [ijkplayer][1]
+**参考资料**：[EasyMovieTexture][3] [ijkplayer][1]
 
-**方案**：这个思路中关键点在于把ijkplayer解析出来的纹理传递给unity，所以我们需要一个 TextureId 来传递纹理（这也可以用 `Texture.LoadRawTextureData(byte[]`传递图像数据），但是这样效率太低），仔细阅读EasyMovieTexture.java这部分工作事实上已经做好了，那么最简单粗暴的方法则是直接找到其中的android.media.MediaPlayer 替换为 tv.danmaku.ijk.media.player.IjkMediaPlayer 即可。
+**方案**：这个思路中关键点在于把ijkplayer解析出来的纹理传递给unity，所以我们需要一个 TextureId 来传递纹理（这也可以用 `Texture.LoadRawTextureData(byte[]`传递图像数据），但是这样效率太低），仔细阅读`EasyMovieTexture.java`这部分工作事实上已经做好了，那么最简单粗暴的方法则是直接找到其中的`android.media.MediaPlayer` 替换为 `tv.danmaku.ijk.media.player.IjkMediaPlayer` 即可。
 贴上代码：
 
 {% highlight java %}
@@ -724,7 +724,7 @@ public class EasyMovieTexture implements IMediaPlayer.OnPreparedListener, IMedia
 }
 {% endhighlight %}
 
-**补充**: 以上仅仅针对有基础的同学们，如果看到这还是云里雾里的同学可以邮箱留言我直接发demo吧。
+**补充**: 以上仅仅针对有基础的同学们，如果看到这还是云里雾里的同学可以邮箱留言我直接发demo吧。
 
 
 [1]:https://github.com/Bilibili/ijkplayer

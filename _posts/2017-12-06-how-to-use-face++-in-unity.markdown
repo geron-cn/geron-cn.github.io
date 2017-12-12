@@ -11,19 +11,19 @@ tags:
 ---
 
 
-**需求**： 在Unity中使用face++人脸检测结果实现比较复杂的例如2d变脸/3d表情追踪等复杂效果
+**需求**： 在Unity中使用face++人脸检测结果实现比较复杂的例如2d变脸/3d表情追踪等复杂效果
 
 **场景**: 复杂AR应用
 
-**问题**：face++本身的demo都是android的和ios的，需要在unity中做复杂场景时直接使用face++中的 `com.facepp.library.OpenglActivity` 来做检测的话，需要多做一步工作，就是需要把 android.hardware.Camera 获取的图像装载到 unity 的 texture2d 中，这一步工作比较麻烦(但是理论上这样使用  `Texture2D.UpdateExternalTexture(textureid)`这样效率更高一些)，并且我的应用场景中需要对摄像机有比较复杂的操作。所以需要在 unity 中直接使用face++sdk的 c++接口。
+**问题**：face++本身的demo都是android的和ios的，需要在unity中做复杂场景时直接使用face++中的 `com.facepp.library.OpenglActivity` 来做检测的话，需要多做一步工作，就是需要把 android.hardware.Camera 获取的图像装载到 unity 的 texture2d 中，这一步工作比较麻烦(但是理论上这样使用  `Texture2D.UpdateExternalTexture(textureid)`这样效率更高一些)，并且我的应用场景中需要对摄像机有比较复杂的操作。所以需要在 unity 中直接使用face++sdk的 c++接口。
 
 **方案**：
-1. 直接使用 unity webcamtexture 获取摄像机视频流画面
-2. 直接封装 face++sdk .so 中的 c++接口，在 unity 中调用。
+1. 直接使用 unity webcamtexture 获取摄像机视频流画面
+2. 直接封装 face++sdk .so 中的 c++接口，在 unity 中调用。
 
-**参考资料**: [face++sdk][1]
+**参考资料**: [face++sdk][1]
 
-在实践过程中发现，主要影响效率的是 mg_facepp.Detect 这个接口，所以*首先*主要封装此接口：
+在实践过程中发现，主要影响效率的是 mg_facepp.Detect 这个接口，所以*首先*主要封装此接口：
 {% highlight c++ %}
 float landmarks_buffer[1890]; // 106 * 15
 unsigned char imagebuffer[1024 * 1024 * 5];
@@ -97,68 +97,67 @@ void* nativeDetect(void* data, int handle,
 
 {% highlight c# %}
 [DllImport("MegviiFacepp-jni-0.4.7")]
-		private static extern System.IntPtr nativeDetect(System.IntPtr imgdata, int handle, int width, int height, int rotation,
-			 int imagemode, int landmarksize,  ref int facecount);
+private static extern System.IntPtr nativeDetect(System.IntPtr          imgdata, int handle, int width, int height, int rotation,
+       int imagemode, int landmarksize,  ref int facecount);
 {% endhighlight %}
 
 其次授权部分的整合：
 
 {% highlight java %}
  // init without camera
-    public void initSDK()
-    {
-        isStartRecorder = false;//getIntent().getBooleanExtra("isStartRecorder", false);
-        is3DPose = false;//getIntent().getBooleanExtra("is3DPose", false);
-        isDebug = false;//getIntent().getBooleanExtra("isdebug", false);
-        isROIDetect = false;//getIntent().getBooleanExtra("ROIDetect", false);
-        is106Points = true;//getIntent().getBooleanExtra("is106Points", false);
-        isBackCamera = false;//getIntent().getBooleanExtra("isBackCamera", false);
-        isFaceProperty = false;//getIntent().getBooleanExtra("isFaceProperty", false);
-        isOneFaceTrackig = true;//getIntent().getBooleanExtra("isOneFaceTrackig", false);
+public void initSDK()
+{
+    isStartRecorder = false;//getIntent().getBooleanExtra("isStartRecorder", false);
+    is3DPose = false;//getIntent().getBooleanExtra("is3DPose", false);
+    isDebug = false;//getIntent().getBooleanExtra("isdebug", false);
+    isROIDetect = false;//getIntent().getBooleanExtra("ROIDetect", false);
+    is106Points = true;//getIntent().getBooleanExtra("is106Points", false);
+    isBackCamera = false;//getIntent().getBooleanExtra("isBackCamera", false);
+    isFaceProperty = false;//getIntent().getBooleanExtra("isFaceProperty", false);
+    isOneFaceTrackig = true;//getIntent().getBooleanExtra("isOneFaceTrackig", false);
 
-        min_face_size = 200;//getIntent().getIntExtra("faceSize", min_face_size);
-        detection_interval = 100;//getIntent().getIntExtra("interval", detection_interval);
-        resolutionMap = null;//(HashMap<String, Integer>) getIntent().getSerializableExtra("resolution");
-        getCurrentActivity();//  set activity from unit(unityplayer) first
-
-
-        final LicenseManager licenseManager = new LicenseManager(current);
-
-        licenseManager.setExpirationMillis(Facepp.getApiExpirationMillis(current, ConUtil.getFileContent(current, R.raw
-                .megviifacepp_0_4_7_model)));
-        String uuid = ConUtil.getUUIDString(current);
-        long apiName = Facepp.getApiName();
-        licenseManager.setAuthTimeBufferMillis(0);
-        licenseManager.takeLicenseFromNetwork(uuid, Util.API_KEY, Util.API_SECRET, apiName,
-                LicenseManager.DURATION_30DAYS, "Landmark", "1", true, new LicenseManager.TakeLicenseCallback() {
-                    @Override
-                    public void onSuccess() {
-                        facepp = new Facepp();
-                        String errorCode = facepp.init(current, ConUtil.getFileContent(current, R.raw.megviifacepp_0_4_7_model));
-                        Facepp.FaceppConfig faceppConfig = facepp.getFaceppConfig();
-                        faceppConfig.interval = 100;
-                        faceppConfig.minFaceSize = 50;
-                        faceppConfig.roi_left = 0;
-                        faceppConfig.roi_top = 0;
-                        faceppConfig.roi_right = 0;
-                        faceppConfig.roi_bottom = 0;
-                        faceppConfig.one_face_tracking = 0;
-                        faceppConfig.rotation = 270;
-                        faceppConfig.detectionMode = Facepp.FaceppConfig.DETECTION_MODE_TRACKING_ROBUST;
-                        facepp.setFaceppConfig(faceppConfig);
-                        inited = true;
-                    }
-
-                    @Override
-                    public void onFailed(int i, byte[] bytes) {
-                        String str = new String(bytes);
-                        authState = false; Log.e("facepp", "failed to auth!!!!!!!!!!!!!!!!");
-                        Log.e("facepp", str);
-                    }
-                });
+    min_face_size = 200;//getIntent().getIntExtra("faceSize", min_face_size);
+    detection_interval = 100;//getIntent().getIntExtra("interval", detection_interval);
+    resolutionMap = null;//(HashMap<String, Integer>) getIntent().getSerializableExtra("resolution");
+    getCurrentActivity();//  set activity from unit(unityplayer) first
 
 
-    }
+    final LicenseManager licenseManager = new LicenseManager(current);
+
+    licenseManager.setExpirationMillis(Facepp.getApiExpirationMillis(current, ConUtil.getFileContent(current, R.raw
+            .megviifacepp_0_4_7_model)));
+    String uuid = ConUtil.getUUIDString(current);
+    long apiName = Facepp.getApiName();
+    licenseManager.setAuthTimeBufferMillis(0);
+    licenseManager.takeLicenseFromNetwork(uuid, Util.API_KEY, Util.API_SECRET, apiName,
+            LicenseManager.DURATION_30DAYS, "Landmark", "1", true, new LicenseManager.TakeLicenseCallback()
+        {
+        @Override
+        public void onSuccess() {
+            facepp = new Facepp();
+            String errorCode = facepp.init(current, ConUtil.getFileContent(current, R.raw.megviifacepp_0_4_7_model));
+            Facepp.FaceppConfig faceppConfig = facepp.getFaceppConfig();
+            faceppConfig.interval = 100;
+            faceppConfig.minFaceSize = 50;
+            faceppConfig.roi_left = 0;
+            faceppConfig.roi_top = 0;
+            faceppConfig.roi_right = 0;
+            faceppConfig.roi_bottom = 0;
+            faceppConfig.one_face_tracking = 0;
+            faceppConfig.rotation = 270;
+            faceppConfig.detectionMode = Facepp.FaceppConfig.DETECTION_MODE_TRACKING_ROBUST;
+            facepp.setFaceppConfig(faceppConfig);
+            inited = true;
+        }
+
+        @Override
+        public void onFailed(int i, byte[] bytes) {
+            String str = new String(bytes);
+            authState = false; Log.e("facepp", "failed to auth!!!!!!!!!!!!!!!!");
+            Log.e("facepp", str);
+        }
+    });
+}
 {% endhighlight %}
 
 *再次*一些其他接口的封装：
@@ -208,98 +207,99 @@ int nativeSetFaceppConfig(int handle, int minFaceSize, int rotation,
 }
 {% endhighlight %}
 
-webcamtexture 纹理转为byte[] 数组
+`webcamtexture` 纹理转为byte[] 数组
 {% highlight c# %}
 [DllImport("MegviiFacepp-jni-0.4.7")]
-		private static extern int nativeSetFaceppConfig (int handle, int minFaceSize, int rotation,
-		                          int interval,
-		                          int detection_mode,
-		                          int left, int top,
-		                          int right, int bottom,
-		                          int one_face_tracking);
+private static extern int nativeSetFaceppConfig (int handle, int minFaceSize, int rotation,
+                            int interval,
+                            int detection_mode,
+                            int left, int top,
+                            int right, int bottom,
+                            int one_face_tracking);
 
 private float[] nativeDetect(byte[] imagedata, int w, int h, int rotation, FaceImageMode imagemode, ref int facecount)
-		{
-			Texture2D t;
-			t.UpdateExternalTexture
-			facecount = 0;
-			GCHandle datah = GCHandle.Alloc (imagedata, GCHandleType.Pinned);
+{
+    Texture2D t;
+    t.UpdateExternalTexture
+    facecount = 0;
+    GCHandle datah = GCHandle.Alloc (imagedata, GCHandleType.Pinned);
 
-			System.IntPtr markp;
-			lock (detectLock) {
-				markp = nativeDetect (datah.AddrOfPinnedObject (), apihandle,
-					w, h, rotation, (int)imagemode, facelandmarksize, ref facecount);
-			}
-			datah.Free();
-//			System.IntPtr markp = nativeDetect ( System.Text.Encoding.UTF8.GetString(imagedata), apihandle,
-//				w, h, (int)imagemode, facelandmarksize, ref facecount);
-			if (facecount != 0) {
-//				var p = Marshal.SizeOf (typeof(float));
-				var  pointsl = facecount * facelandmarksize * 2 ;
-				float[] landmarks = new float[pointsl];
-				Marshal.Copy (markp, landmarks, 0, pointsl);
-				return landmarks;
-			}
-			return new float[0];
-		}
+    System.IntPtr markp;
+    lock (detectLock) {
+        markp = nativeDetect (datah.AddrOfPinnedObject (), apihandle,
+            w, h, rotation, (int)imagemode, facelandmarksize, ref facecount);
+    }
+    datah.Free();
+    if (facecount != 0) {
+        var  pointsl = facecount * facelandmarksize * 2 ;
+        float[] landmarks = new float[pointsl];
+        Marshal.Copy (markp, landmarks, 0, pointsl);
+        return landmarks;
+    }
+    return new float[0];
+}
 
-        public DetectData(Color32[] colors, int w, int h, int rotation, FaceImageMode imagemode)
-			{
-				this.width = w;
-				this.height = h;
-				this.rotation = rotation;
-				var pixels = colors;
-				this.imagemode = imagemode;
-				var l = w * h;
-				//@TODO MOVE TO THREAD
-				if(imagemode == FaceImageMode.RGBA)
-				{
-					l *= 4;
-					data = new byte[l];
-					GCHandle handle = default(GCHandle);
-					try
-					{
-						handle = GCHandle.Alloc(colors, GCHandleType.Pinned);
-						IntPtr ptr = handle.AddrOfPinnedObject();
-						Marshal.Copy(ptr, data, 0, l);
-					}
-					finally
-					{
-						if (handle != default(GCHandle))
-							handle.Free();
-					}
-				}
-				else if(imagemode == FaceImageMode.GRAY)
-				{
-					data = new byte[l];
-					Color32 pixel;
-					for(int i= 0; i < l; i++)
-					{
-						pixel = pixels[i];
-	//					graydata[i] =  (byte)(pixels[i]. * 255);
-	//				for (int j = 0; j < texture.height; ++j)
-	//					for (int i = 0; i < texture.width; ++i) {
-	//						var pixel = pixels[
-						data[i] = (byte) ((299 * pixel.r  + 587
-							* pixel.g  + 114 * pixel.b )/1000 );
-					}
-	//					}
-				}
-				else if(imagemode == FaceImageMode.RGB)
-				{
-					data = new byte[l * 3];
-					Color32 pixel;
-					for(int i = 0; i < l; i++)
-					{
-						pixel = pixels[i];
-						data[i*3 ] = pixel.r;
-						data[i*3 + 1] = pixel.g;
-						data[i*3 + 2] = pixel.b;
-					}
-				}
+public DetectData(Color32[] colors, int w, int h, int rotation, FaceImageMode imagemode)
+    {
+        this.width = w;
+        this.height = h;
+        this.rotation = rotation;
+        var pixels = colors;
+        this.imagemode = imagemode;
+        var l = w * h;
+        //@TODO MOVE TO THREAD
+        if(imagemode == FaceImageMode.RGBA)
+        {
+            l *= 4;
+            data = new byte[l];
+            GCHandle handle = default(GCHandle);
+            try
+            {
+                handle = GCHandle.Alloc(colors, GCHandleType.Pinned);
+                IntPtr ptr = handle.AddrOfPinnedObject();
+                Marshal.Copy(ptr, data, 0, l);
+            }
+            finally
+            {
+                if (handle != default(GCHandle))
+                    handle.Free();
+            }
+        }
+        else if(imagemode == FaceImageMode.GRAY)
+        {
+            data = new byte[l];
+            Color32 pixel;
+            for(int i= 0; i < l; i++)
+            {
+                pixel = pixels[i];
+//					graydata[i] =  (byte)(pixels[i]. * 255);
+//				for (int j = 0; j < texture.height; ++j)
+//					for (int i = 0; i < texture.width; ++i) {
+//						var pixel = pixels[
+                data[i] = (byte) ((299 * pixel.r  + 587
+                    * pixel.g  + 114 * pixel.b )/1000 );
+            }
+//					}
+        }
+        else if(imagemode == FaceImageMode.RGB)
+        {
+            data = new byte[l * 3];
+            Color32 pixel;
+            for(int i = 0; i < l; i++)
+            {
+                pixel = pixels[i];
+                data[i*3 ] = pixel.r;
+                data[i*3 + 1] = pixel.g;
+                data[i*3 + 2] = pixel.b;
+            }
+        }
 
-			}
+    }
 {% endhighlight %}
+
+其中 Unity Texture2D 转 Byte[]数组这有个需要注意的地方
+1. 效率问题：以上的方法比 `EncodingToPNG/EncodingToJPG` 效率高，其中直接拷贝内存的方法效率最高。注意获取像素时不要在循环中使用 `GetPixel(int,int)`。
+2. 很多图像处理的接口使用都是 `width*height*pixelwidth`的 byte[] 数据长度，所以`EncodingToPNG/EncodingToJPG`压缩后的数据是没法使用的，`GetRawTextureData`数据可以，但是得是 `LoadRawTextureData` 或者`WWW`加载的 Texture 才可以。
 
 
 **补充**：以上仅针对有些基础的同学，如果看了这些还是云里雾里的话，直接邮箱留言我发demo吧。

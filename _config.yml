@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: 
+title: 郭建强 | Gero
 SEOTitle: Gero’s Blog
 header-img: img/home-bg.jpg
 email: c.ever.fallen(at)gmail
@@ -74,8 +74,8 @@ ga_domain: gero.pub
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: 
-sidebar-avatar:     # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-about-description: Now you see me.
+sidebar-avatar:    /img/gero-avatar.jpg # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 
