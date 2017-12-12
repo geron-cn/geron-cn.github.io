@@ -55,7 +55,7 @@ plugins: [jekyll-paginate]
 
 
 # Disqus settings
-disqus_username: geron_cn
+disqus_username: www-gero-pub
 
 # Netease setttings
 netease_comment: false
