@@ -29,7 +29,7 @@ url: "https://www.gero.pub" # the base hostname & protocol for your site, e.g. h
 #twitter_username: jekyllrb
 github_username:    geron-cn
 weibo_username:     kfalling
-zhihu_username:     Gero
+zhihu_username:     guo-jian-qiang-49
 twitter_username:   
 
 
@@ -55,7 +55,7 @@ plugins: [jekyll-paginate]
 
 
 # Disqus settings
-disqus_username: 
+disqus_username: geron_cn
 
 # Netease setttings
 netease_comment: false
@@ -68,7 +68,7 @@ netease_comment: false
 
 # Google Analytics
 ga_track_id: 'UA-29825740-1'            # Format: UA-xxxxxx-xx
-ga_domain: gero.pub
+ga_domain: www.gero.pub
 
 
 
