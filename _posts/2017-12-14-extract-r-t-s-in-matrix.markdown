@@ -1,8 +1,8 @@
 ---
 layout:  post
-title:   matrix 中提取旋转/位移/缩放分量
+title:   matrix 中提取旋转、位移、缩放分量
 date:    2017-12-06 10:19:56
-author: Gero
+author:  Gero
 header-img: "img/post-bg-miui6.jpg"
 tags:
     - OpengGL
@@ -33,6 +33,4 @@ return Quaternion.LookRotation(forward, upwards);
 scale.x = new Vector4(matrix[0], matrix[1], matrix[2], matrix[3]).magnitude;
 scale.y = new Vector4(matrix[4], matrix[5], matrix[6], matrix[7]).magnitude;
 scale.z = new Vector4(matrix[8], matrix[9], matrix[10], matrix[11]).magnitude;
-
-           
 {% endhighlight %}
