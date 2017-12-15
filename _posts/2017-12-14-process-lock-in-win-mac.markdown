@@ -1,8 +1,8 @@
 ---
 layout:  post
-title:   Win Unix跨平台平台的进程锁
+title:   Win Unix 跨平台进程锁
 date:    2017-12-06 10:19:56
-author: Gero
+author:  Gero
 header-img: "img/post-bg-miui6.jpg"
 tags:
     - 进程锁
