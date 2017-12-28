@@ -17,6 +17,7 @@ tags:
 部分参考资料： [best-ar-sdk-review](https://thinkmobiles.com/blog/best-ar-sdk-review/)，包括功能和授权分析：
 
 ###SDK Feature Comparison 
+
 | |Vuforia| EasyAR| Wikitude| ARToolKit| Kudan| MaxST| Xzimg| NyARToolKit|
 |----|----|----|----|----|----|----|----|----|
 |Maximum distance capturing / holding marker (m)|1.2 / 3.7| 0.9 / 2.7| 0.8 / 3 |3 /3| 0.8/3|0.5/0.9| 0.7 / 5 |0.7 / 1|
