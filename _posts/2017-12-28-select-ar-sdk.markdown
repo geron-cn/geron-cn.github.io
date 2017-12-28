@@ -16,22 +16,20 @@ tags:
 
 部分参考资料： [best-ar-sdk-review](https://thinkmobiles.com/blog/best-ar-sdk-review/)，包括功能和授权分析：
 
-####  SDK Feature Comparison 
-
-|  |Vuforia| EasyAR| Wikitude|   ARToolKit|  Kudan|  MaxST|  Xzimg|  NyARToolKit|
-|:--|:--|:--|:--|:--|:--|:--|:--|:--|
-|Maximum distance capturing / holding marker (m)|1.2 / 3.7|   0.9 / 2.7|  0.8 / 3 |3 /3|  0.8/3|0.5/0.9|  0.7 / 5 |0.7 / 1|
-|Recognition stability of immovable marker    |10 |7  |6| 8   |10|    7   |8  |5|
-|Recognition stability of movable marker  |6| 3   |4| 6   |6| 2   |7| 3|
-|Minimum angle recognition    |30|    35| 40| 10| 30  |50|    35| 45|
-|Minimum visibility for recognition overlapped marker|    20% |10%|   30%|    100%|   25% |  50%  |10%    | 75%|
-|2D Recognition|  ✓   |✓| ✓|  ✓(bordered)|    ✓   |✓| ✓|  ✓|
-|3D Recognition|  ✓|  –   |✓(beta)    |–| ✓|  ✓   |–| –|
-|Geo-Location|    –|  –|✓|–   |–  |–  |–| –|
-|Cloud Recognition|   ✓   |–  |✓| –|  –|–|    –|  –|
-|SLAM|    –   |–| ✓|  –|  ✓|  ✓   |–| –|
-|Total (rating)|7.1|  4.4 |7.5|   2.8|    6.9|    5.2|    4.7|    3.1|
-查阅资料后发现基本所有sdk都是基于OpenCV的基础上
+###  SDK Feature Comparison 
+| |Vuforia| EasyAR| Wikitude| ARToolKit| Kudan| MaxST| Xzimg| NyARToolKit|
+|---|----|---|----|---|----|---|----|----|
+|Maximum distance capturing / holding marker (m)|1.2 / 3.7| 0.9 / 2.7| 0.8 / 3 |3 /3| 0.8/3|0.5/0.9| 0.7 / 5 |0.7 / 1|
+|Recognition stability of immovable marker |10 |7 |6| 8 |10| 7 |8 |5|
+|Recognition stability of movable marker |6| 3 |4| 6 |6| 2 |7| 3| 
+|Minimum angle recognition |30| 35| 40| 10| 30 |50| 35| 45| 
+|Minimum visibility for recognition overlapped marker| 20% |10%| 30%| 100%| 25% | 50% |10% | 75%| 
+|2D Recognition| ✓ |✓| ✓| ✓(bordered)| ✓ |✓| ✓| ✓| 
+|3D Recognition| ✓| – |✓(beta) |–| ✓| ✓ |–| –|
+|Geo-Location| –| –|✓|– |– |– |–| –| 
+|Cloud Recognition| ✓ |– |✓| –| –|–| –| –| 
+|SLAM| – |–| ✓| –| ✓| ✓ |–| –| 
+|Total (rating)|7.1| 4.4 |7.5| 2.8| 6.9| 5.2| 4.7| 3.1| 查阅资料后发现基本所有sdk都是基于OpenCV的基础上
 
 以以上评分作为参考，考虑以 Unity 作为可视化开发工具，筛选了以下三个平台作为对比，找了些些资料作为对比：
 
