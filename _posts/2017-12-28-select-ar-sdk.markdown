@@ -16,9 +16,9 @@ tags:
 
 部分参考资料： [best-ar-sdk-review](https://thinkmobiles.com/blog/best-ar-sdk-review/)，包括功能和授权分析：
 
-###  SDK Feature Comparison 
+###SDK Feature Comparison 
 | |Vuforia| EasyAR| Wikitude| ARToolKit| Kudan| MaxST| Xzimg| NyARToolKit|
-|---|----|---|----|---|----|---|----|----|
+|----|----|----|----|----|----|----|----|----|
 |Maximum distance capturing / holding marker (m)|1.2 / 3.7| 0.9 / 2.7| 0.8 / 3 |3 /3| 0.8/3|0.5/0.9| 0.7 / 5 |0.7 / 1|
 |Recognition stability of immovable marker |10 |7 |6| 8 |10| 7 |8 |5|
 |Recognition stability of movable marker |6| 3 |4| 6 |6| 2 |7| 3| 
@@ -42,17 +42,10 @@ tags:
 另外还有一个 [AR.js](https://github.com/jeromeetienne/AR.js)，基于 ARToolKit 扩展的，支持光照等，全跨平台，性能也相当高,如果不考虑可视化编辑影响开发效率的话是非常好的选择。
 
 [1]:https://www.wikitude.com/download/
-
 [2]:https://www.kudan.eu/download-kudan-ar-sdk/
-
 [3]:https://www.wikitude.com/external/doc/documentation/
-
 [4]:https://kudan.readme.io/docs/getting-started
-
 [5]:https://archive.artoolkit.org/documentation/
-
 [6]:https://archive.artoolkit.org/download-artoolkit-sdk
-
 [7]:https://github.com/kudan-eu
-
 [8]:https://github.com/artoolkit/artoolkit5
