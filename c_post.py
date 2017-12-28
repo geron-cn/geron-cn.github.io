@@ -6,7 +6,8 @@ import sys
 
 namestr =  namestr = sys.argv[1] if len(sys.argv) > 1 else 'new-post'
 rootpath = os.getcwd()
-datestr = time.strftime('%Y-%m-%d %H-%M-%S', time.localtime(time.time()))
+datestr = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+datestrall = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 namestrp = namestr.replace(" ", "-")
 filename = datestr+'-'+namestrp + '.markdown'
 filepath = os.path.join(rootpath, "_posts", filename);
@@ -17,7 +18,7 @@ while(os.path.exists(filepath)):
     print '%s exists' % filepath
 
 file = open(filepath, 'w')
-filecontent = '---\nlayout:  post\ntitle:  %s \ndate:  %s \nauthor:  Gero\nheader-img:  "img/post-bg-miui6.jpg"\ntags: \n---' %(namestr, datestr)
+filecontent = '---\nlayout:  post\ntitle:  %s\ndate:%s\nauthor:  Gero\nheader-img:  "img/post-bg-miui6.jpg"\ntags:\n   -\n   -\n---' %(namestr, datestrall)
 file.write(filecontent)
 file.close()
 

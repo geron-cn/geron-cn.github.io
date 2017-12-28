@@ -7,7 +7,7 @@ header-img: "img/post-bg-miui6.jpg"
 tags:
     - 裸眼3D
     - Unity
-    - shader
+    - Shader
 ---
 
 可支持大部分UI的裸眼3D化，3d模型部分则使用左右摄像机来达到这种效果。
