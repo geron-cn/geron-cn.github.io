@@ -16,7 +16,7 @@ tags:
 
 部分参考资料： [best-ar-sdk-review](https://thinkmobiles.com/blog/best-ar-sdk-review/)，包括功能和授权分析：
 
-###SDK Feature Comparison 
+### SDK Feature Comparison 
 
 | |Vuforia| EasyAR| Wikitude| ARToolKit| Kudan| MaxST| Xzimg| NyARToolKit|
 |----|----|----|----|----|----|----|----|----|
@@ -30,8 +30,9 @@ tags:
 |Geo-Location| –| –|✓|– |– |– |–| –| 
 |Cloud Recognition| ✓ |– |✓| –| –|–| –| –| 
 |SLAM| – |–| ✓| –| ✓| ✓ |–| –| 
-|Total (rating)|7.1| 4.4 |7.5| 2.8| 6.9| 5.2| 4.7| 3.1| 查阅资料后发现基本所有sdk都是基于OpenCV的基础上
+|Total (rating)|7.1| 4.4 |7.5| 2.8| 6.9| 5.2| 4.7| 3.1| 
 
+查阅资料后发现基本所有sdk都是基于OpenCV的基础上
 以以上评分作为参考，考虑以 Unity 作为可视化开发工具，筛选了以下三个平台作为对比，找了些些资料作为对比：
 
 |  | 支持平台| 文档 | 示例 | |
