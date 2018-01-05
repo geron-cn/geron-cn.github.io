@@ -13,6 +13,8 @@ tags:
 
 **需求**： 在Unity中使用face++人脸检测结果实现比较复杂的例如2d变脸/3d表情追踪等复杂效果
 
+![face++ 离线SDK](/img/faceplusplus.jpg)
+
 **场景**: 复杂AR应用
 
 **问题**：face++本身的demo都是android的和ios的，需要在unity中做复杂场景时直接使用face++中的 `com.facepp.library.OpenglActivity` 来做检测的话，需要多做一步工作，就是需要把 android.hardware.Camera 获取的图像装载到 unity 的 texture2d 中，这一步工作比较麻烦(但是理论上这样使用  `Texture2D.UpdateExternalTexture(textureid)`这样效率更高一些)，并且我的应用场景中需要对摄像机有比较复杂的操作。所以需要在 unity 中直接使用face++sdk的 c++接口。

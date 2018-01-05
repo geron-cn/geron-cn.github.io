@@ -14,6 +14,9 @@ tags:
 2. Marker 追踪，根据在拍摄画面中检测目标图片（或3D物体）并实时追踪，构建三维空间
 3. Markerless 检测，在拍摄画面中实时检测一个平面，构建三维空间
 
+![ar sdk choose](/img/arsdkchoose.jpg)
+
+
 部分参考资料： [best-ar-sdk-review](https://thinkmobiles.com/blog/best-ar-sdk-review/)，包括功能和授权分析：
 
 ### SDK Feature Comparison 
