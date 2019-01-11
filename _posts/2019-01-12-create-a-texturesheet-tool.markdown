@@ -12,7 +12,7 @@ tags:
 背景：最近写一个小动画，需要合图，但是texturepacker之类的合图工具基本上都要收费，装了cocos的机器又不在手边，
 于是身为一个兼职的脚本工程师，就自己写了一个合图工具，还是很好用的。
 
-左手坐标系与右手坐标系相互转换：
+其中各项参数根据自己的情况替换：
 ```python
 import cv2
 import numpy as np
@@ -35,4 +35,3 @@ cv2.imwrite('merge.png',emptyimg)
 
 ```
 
-比较常见的操作还有maya/3dmax 导出需选择Y轴向上；右手坐标系 转到左手坐标系  x y z = x z y 四元数 x y z w => -x -z -y w；水平翻转 texture等。
